@@ -1,3 +1,4 @@
+var winston = require('winston');
 var child_process = require('child_process');
 var gitParser = require('./git-parser');
 var async = require('async');
@@ -37,6 +38,7 @@ var gitQueue = async.queue(function (task, callback) {
 var git = function(command, repoPath, parser, callback, onStarted) {
   if (typeof(callback) != 'function') throw new Error('Callback must be function');
   command = 'git ' + gitConfigNoColors + ' ' + command;
+  winston.info('Executing ' + command);
 
   var task = {
     command: command,
